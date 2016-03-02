@@ -20,11 +20,6 @@ class Model: NSObject {
     func addTask(taskTitle: String) {
         self.tasks.append(task(taskTitle: taskTitle, taskCompleted: false, taskCompletedAndNeedToDelete: false, timer: NSTimer()))
     }
-    func killTimer(x: Int) {
-        tasks[x].timer = NSTimer()
-        tasks[x].taskCompleted = false
-        tasks[x].taskCompletedAndNeedToDelete = false
-    }
     func numberOfTasksCompleted() -> Int {
         var numberOfTasksCompleted = 0
         for task in tasks {
@@ -34,8 +29,13 @@ class Model: NSObject {
         }
         return numberOfTasksCompleted
     }
+    func killTimer(x: Int) {
+        tasks[x].timer = NSTimer()
+        tasks[x].taskCompleted = false
+        tasks[x].taskCompletedAndNeedToDelete = false
+    }
     func completeTask(x: Int) {
-        tasks[x].timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("deleteTask:"), userInfo: nil, repeats: false)
+        tasks[x].timer = NSTimer.scheduledTimerWithTimeInterval(86400, target: self, selector: Selector("deleteTask:"), userInfo: nil, repeats: false)
         tasks[x].taskCompleted = true
     }
     func deleteTask(timer: NSTimer) {
